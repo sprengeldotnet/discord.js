@@ -1,4 +1,4 @@
-# The Source code for sprengel bot
+# Install nodejs
 
     sudo apt-get install curl software-properties-common
     
