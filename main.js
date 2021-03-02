@@ -20,7 +20,7 @@ client.on('message', (message) => {
 
     //commands
     if(message.content.startsWith(".")){
-        var command = message.content.substring(1).toLocaleLowerCase();
+        var command = message.content.substring(1).toLowerCase();
         if(command=='help'){
             var embed = new Discord.MessageEmbed()
                 .setTitle('**Commands:**')
