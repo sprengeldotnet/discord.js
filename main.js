@@ -24,7 +24,7 @@ client.on('message', (message) => {
         if(command=='help'){
             var embed = new Discord.MessageEmbed()
                 .setTitle('**Commands:**')
-                .setDescription("**.help**  -  This help text.\r**.info**  -  Information about this Bot.\r**.ip** *ip*  -  Returns Information about a specific IP address.\r**.w** *something*  -  Searches for *something* Wikipedia.\r**.domain** *domain*  -  Information about a Domain and it's DNS Records.\r**.meme**  -  Random Meme from Random Subreddit.\r**.nsfw**  -  Returns a Random Picture from /r/nsfw.\r**.hentai**  -  Returns a Random Picture from /r/hentai.\r**.sexy**  -  Returns a Random Picture from /r/SexyButNotPorn.\r**.invite**  -  Invite this Bot.\r**.ping**  -  Ping Test.")
+                .setDescription("**.help**  -  This help text.\r**.info**  -  Information about this Bot.\r**.kick** *@user*  -  Kick a Member.\r**.ban** *@user*  -  Ban a Member.\r**.ip** *ip*  -  Returns Information about a specific IP address.\r**.w** *something*  -  Searches for *something* Wikipedia.\r**.domain** *domain*  -  Information about a Domain and it's DNS Records.\r**.meme**  -  Random Meme from Random Subreddit.\r**.nsfw**  -  Returns a Random Picture from /r/nsfw.\r**.hentai**  -  Returns a Random Picture from /r/hentai.\r**.sexy**  -  Returns a Random Picture from /r/SexyButNotPorn.\r**.invite**  -  Invite this Bot.\r**.ping**  -  Ping Test.")
                 .setColor('#7289da');
             message.channel.send(embed);
             return;
@@ -52,42 +52,54 @@ client.on('message', (message) => {
             });
             return;
         }
+        //kick
         else if(command.startsWith("kick")){
-            var user = message.mentions.users.first();
-            if(user){
-                var member = message.guild.member(user);
-                if(member){
-                    member.kick('sprengel bot - .kick').then(() => {
-                        return message.channel.send("Successfully kicked `"+user.tag+"`");
-                    }).catch(()=> {
-                        return message.channel.send("I am unable to kick `"+user.tag+"`");
-                    })
+            if (message.member.hasPermission("KICK_MEMBERS")) {
+                var user = message.mentions.users.first();
+                if(user){
+                    var member = message.guild.member(user);
+                    if(member){
+                        member.kick('sprengel bot - .kick').then(() => {
+                            return message.channel.send("Successfully kicked `"+user.tag+"`");
+                        }).catch(()=> {
+                            return message.channel.send("I am unable to kick `"+user.tag+"`");
+                        })
+                    }
+                    else{
+                        return message.channel.send("That user isn't in this guild.");
+                    }
                 }
                 else{
-                    return message.channel.send("That user isn't in this guild.");
+                    return message.channel.send("You didn't mention the user to kick.");
                 }
             }
             else{
-                return message.channel.send("You didn't mention the user to kick.");
+                return message.channel.send("you do not have permission to kick members.");
             }
         }
+        //ban
         else if(command.startsWith("ban")){
-            var user = message.mentions.users.first();
-            if(user){
-                var member = message.guild.member(user);
-                if(member){
-                    member.ban({reason:'sprengel bot - .ban',}).then(() => {
-                        return message.channel.send("Successfully banned `"+user.tag+"`");
-                    }).catch(()=> {
-                        return message.channel.send("I am unable to ban `"+user.tag+"`");
-                    })
+            if (message.member.hasPermission("BAN_MEMBERS")) {
+                var user = message.mentions.users.first();
+                if(user){
+                    var member = message.guild.member(user);
+                    if(member){
+                        member.ban({reason:'sprengel bot - .ban',}).then(() => {
+                            return message.channel.send("Successfully banned `"+user.tag+"`");
+                        }).catch(()=> {
+                            return message.channel.send("I am unable to ban `"+user.tag+"`");
+                        })
+                    }
+                    else{
+                        return message.channel.send("That user isn't in this guild.");
+                    }
                 }
                 else{
-                    return message.channel.send("That user isn't in this guild.");
+                    return message.channel.send("You didn't mention the user to ban.");
                 }
             }
             else{
-                return message.channel.send("You didn't mention the user to ban.");
+                return message.channel.send("you do not have permission to ban members.");
             }
         }
         if(command=="meme"){
