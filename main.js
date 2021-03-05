@@ -46,10 +46,7 @@ client.on('message', (message) => {
             message.channel.send(embed);
             return;
         } else if (command == 'invite') {
-            message.author.send('You can find an invite link here: <https://sprengel.net/discord/>').catch(() => {
-                message.channel.send("You can find an invite link here: <https://sprengel.net/discord/>");
-                return;
-            });
+            message.channel.send("You can find an invite link here: <https://sprengel.net/discord/>");
             return;
         }
         //kick
